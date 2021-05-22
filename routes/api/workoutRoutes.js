@@ -24,14 +24,14 @@ router.post("/", ({ body }, res) => {
 });
 
 // router.put
-router.put("/:id", ({ body }, res) => {
-    Workout.collection.updateOne(req.params.id,
-        {$push: {excercies: req.body}},
+router.put("/:id", (req, res) => {
+    Workout.findOneAndUpdate({_id: req.params.id},
+        {$push: {exercises: req.body}},
         {new:true})
         .then(dbWorkout => {
-            res.json(data);
-    })
-    .catch(err => {
+        res.json(dbWorkout);
+        })
+        .catch(err => {
         res.status(400).json(err);
     })
 });
